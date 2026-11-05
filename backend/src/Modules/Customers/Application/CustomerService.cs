@@ -1,4 +1,5 @@
 using NotificationManagement.BuildingBlocks.Domain;
+using NotificationManagement.BuildingBlocks.Application.Validation;
 using NotificationManagement.Customers.Domain;
 
 namespace NotificationManagement.Customers.Application;
@@ -9,17 +10,21 @@ public sealed record CustomerPreferenceInput(NotificationChannel Channel, Notifi
 public sealed record CustomerSummary(Guid Id, string Name, string? ExternalId, string? Email, string? Phone, string AttributesJson, DateTimeOffset CreatedAt, DateTimeOffset UpdatedAt);
 public sealed record CustomerDetails(CustomerSummary Customer, IReadOnlyList<CustomerPreferenceInput> Preferences);
 
-public sealed class CustomerService(ICustomerRepository repository, TimeProvider timeProvider) : ICustomerService
+public sealed class CustomerService(
+    ICustomerRepository repository,
+    IValidator<CustomerInput> customerInputValidator,
+    IValidator<CustomerUpdateInput> customerUpdateInputValidator,
+    TimeProvider timeProvider) : ICustomerService
 {
     public async Task<CustomerDetails> CreateAsync(CustomerInput input, CancellationToken cancellationToken)
     {
-        CustomerInputValidator.ThrowIfInvalid(input);
+        Validate(customerInputValidator, input);
         if (!string.IsNullOrWhiteSpace(input.ExternalId) && await repository.ExternalIdExistsAsync(input.ExternalId.Trim(), cancellationToken))
         {
-            throw new CustomerValidationException(new Dictionary<string, string[]>
+            throw new RequestValidationException(new ValidationResult(new Dictionary<string, string[]>
             {
                 ["externalId"] = ["External ID is already in use."]
-            });
+            }));
         }
 
         var attributesJson = string.IsNullOrWhiteSpace(input.AttributesJson) ? "{}" : input.AttributesJson;
@@ -40,7 +45,7 @@ public sealed class CustomerService(ICustomerRepository repository, TimeProvider
 
     public async Task<CustomerDetails?> UpdateAsync(Guid id, CustomerUpdateInput input, CancellationToken cancellationToken)
     {
-        CustomerInputValidator.ThrowIfInvalid(input);
+        Validate(customerUpdateInputValidator, input);
         var customer = await repository.FindAsync(id, cancellationToken);
         if (customer is null) return null;
 
@@ -65,4 +70,10 @@ public sealed class CustomerService(ICustomerRepository repository, TimeProvider
 
     private static CustomerDetails ToDetails(Customer customer) =>
         new(ToSummary(customer), customer.Preferences.Select(item => new CustomerPreferenceInput(item.Channel, item.Category, item.Enabled)).ToArray());
+
+    private static void Validate<T>(IValidator<T> validator, T input)
+    {
+        var result = validator.Validate(input);
+        if (!result.IsValid) throw new RequestValidationException(result);
+    }
 }

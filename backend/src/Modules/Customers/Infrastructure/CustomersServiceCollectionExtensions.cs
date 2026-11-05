@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using NotificationManagement.BuildingBlocks.Application.Validation;
 using NotificationManagement.Customers.Application;
 
 namespace NotificationManagement.Customers.Infrastructure;
@@ -15,6 +16,8 @@ public static class CustomersServiceCollectionExtensions
         services.AddDbContext<CustomersDbContext>(options => options.UseNpgsql(connectionString));
         services.AddScoped<ICustomerRepository, CustomerRepository>();
         services.AddScoped<ICustomerService, CustomerService>();
+        services.AddScoped<IValidator<CustomerInput>, CustomerInputValidator>();
+        services.AddScoped<IValidator<CustomerUpdateInput>, CustomerUpdateInputValidator>();
         return services;
     }
 }

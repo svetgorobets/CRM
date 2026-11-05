@@ -1,21 +1,25 @@
 using System.Net.Mail;
 using System.Text.Json;
 using System.Text.RegularExpressions;
+using NotificationManagement.BuildingBlocks.Application.Validation;
 
 namespace NotificationManagement.Customers.Application;
 
-public static partial class CustomerInputValidator
+public sealed partial class CustomerInputValidator : IValidator<CustomerInput>
 {
-    public static IReadOnlyDictionary<string, string[]> Validate(CustomerInput input) => Validate(
+    public ValidationResult Validate(CustomerInput input) => CustomerValidationRules.Validate(
         input.Name, input.ExternalId, input.Email, input.Phone, input.AttributesJson);
+}
 
-    public static IReadOnlyDictionary<string, string[]> Validate(CustomerUpdateInput input) => Validate(
+public sealed class CustomerUpdateInputValidator : IValidator<CustomerUpdateInput>
+{
+    public ValidationResult Validate(CustomerUpdateInput input) => CustomerValidationRules.Validate(
         input.Name, null, input.Email, input.Phone, input.AttributesJson);
+}
 
-    public static void ThrowIfInvalid(CustomerInput input) => ThrowIfInvalid(Validate(input));
-    public static void ThrowIfInvalid(CustomerUpdateInput input) => ThrowIfInvalid(Validate(input));
-
-    private static IReadOnlyDictionary<string, string[]> Validate(string? name, string? externalId, string? email, string? phone, string? attributesJson)
+internal static partial class CustomerValidationRules
+{
+    public static ValidationResult Validate(string? name, string? externalId, string? email, string? phone, string? attributesJson)
     {
         var errors = new Dictionary<string, List<string>>(StringComparer.OrdinalIgnoreCase);
         AddIf(errors, "name", string.IsNullOrWhiteSpace(name), "Name is required.");
@@ -24,17 +28,14 @@ public static partial class CustomerInputValidator
         AddIf(errors, "externalId", !string.IsNullOrWhiteSpace(externalId) && !ExternalIdPattern().IsMatch(externalId), "External ID may contain letters, numbers, periods, hyphens, colons, and underscores.");
         AddIf(errors, "email", email?.Trim().Length > 320, "Email address must be 320 characters or fewer.");
         AddIf(errors, "email", !string.IsNullOrWhiteSpace(email) && !IsEmailAddress(email), "Enter a valid email address.");
-        AddIf(errors, "phone", phone?.Trim().Length > 50, "Phone number must be 50 characters or fewer.");
+        AddIf(errors, "phone", phone?.Trim().Length > 16, "Phone number must be 16 characters or fewer.");
         AddIf(errors, "phone", !string.IsNullOrWhiteSpace(phone) && !PhonePattern().IsMatch(phone), "Phone number must use E.164 format, for example +14155550100.");
         AddIf(errors, "contact", string.IsNullOrWhiteSpace(email) && string.IsNullOrWhiteSpace(phone), "Provide an email address or phone number.");
         AddIf(errors, "attributesJson", !IsJsonObject(attributesJson), "Attributes must be a valid JSON object.");
 
-        return errors.ToDictionary(item => item.Key, item => item.Value.ToArray(), StringComparer.OrdinalIgnoreCase);
-    }
-
-    private static void ThrowIfInvalid(IReadOnlyDictionary<string, string[]> errors)
-    {
-        if (errors.Count > 0) throw new CustomerValidationException(errors);
+        return errors.Count == 0
+            ? ValidationResult.Success
+            : new ValidationResult(errors.ToDictionary(item => item.Key, item => item.Value.ToArray(), StringComparer.OrdinalIgnoreCase));
     }
 
     private static bool IsEmailAddress(string value)
@@ -61,9 +62,4 @@ public static partial class CustomerInputValidator
 
     [GeneratedRegex("^\\+[1-9]\\d{1,14}$")]
     private static partial Regex PhonePattern();
-}
-
-public sealed class CustomerValidationException(IReadOnlyDictionary<string, string[]> errors) : Exception("Customer validation failed.")
-{
-    public IReadOnlyDictionary<string, string[]> Errors { get; } = errors;
 }

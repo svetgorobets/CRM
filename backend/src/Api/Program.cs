@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using NotificationManagement.BuildingBlocks.Application.Validation;
 using NotificationManagement.Customers.Application;
 using NotificationManagement.Customers.Infrastructure;
 using NotificationManagement.Integrations.Application;
@@ -34,34 +35,34 @@ customers.MapGet("/{id:guid}", async (Guid id, ICustomerService service, Cancell
     var customer = await service.GetAsync(id, cancellationToken);
     return customer is null ? Results.NotFound() : Results.Ok(customer);
 });
-customers.MapPost("/", async (CustomerInput input, ICustomerService service, CancellationToken cancellationToken) =>
+customers.MapPost("/", async (CustomerInput input, IValidator<CustomerInput> validator, ICustomerService service, CancellationToken cancellationToken) =>
 {
-    var errors = CustomerInputValidator.Validate(input);
-    if (errors.Count > 0) return Results.ValidationProblem(errors);
+    var result = validator.Validate(input);
+    if (!result.IsValid) return Results.ValidationProblem(result.Errors);
 
     try
     {
         var customer = await service.CreateAsync(input, cancellationToken);
         return Results.Created($"/api/customers/{customer.Customer.Id}", customer);
     }
-    catch (CustomerValidationException exception)
+    catch (RequestValidationException exception)
     {
-        return Results.ValidationProblem(exception.Errors);
+        return Results.ValidationProblem(exception.Result.Errors);
     }
 });
-customers.MapPut("/{id:guid}", async (Guid id, CustomerUpdateInput input, ICustomerService service, CancellationToken cancellationToken) =>
+customers.MapPut("/{id:guid}", async (Guid id, CustomerUpdateInput input, IValidator<CustomerUpdateInput> validator, ICustomerService service, CancellationToken cancellationToken) =>
 {
-    var errors = CustomerInputValidator.Validate(input);
-    if (errors.Count > 0) return Results.ValidationProblem(errors);
+    var result = validator.Validate(input);
+    if (!result.IsValid) return Results.ValidationProblem(result.Errors);
 
     try
     {
         var customer = await service.UpdateAsync(id, input, cancellationToken);
         return customer is null ? Results.NotFound() : Results.Ok(customer);
     }
-    catch (CustomerValidationException exception)
+    catch (RequestValidationException exception)
     {
-        return Results.ValidationProblem(exception.Errors);
+        return Results.ValidationProblem(exception.Result.Errors);
     }
 });
 customers.MapPut("/{id:guid}/preferences", async (Guid id, CustomerPreferenceInput input, ICustomerService service, CancellationToken cancellationToken) =>
