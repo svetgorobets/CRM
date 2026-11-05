@@ -9,6 +9,9 @@ public sealed class CustomerRepository(CustomersDbContext dbContext) : ICustomer
     public Task<Customer?> FindAsync(Guid id, CancellationToken cancellationToken) =>
         dbContext.Customers.Include(customer => customer.Preferences).SingleOrDefaultAsync(customer => customer.Id == id, cancellationToken);
 
+    public Task<bool> ExternalIdExistsAsync(string externalId, CancellationToken cancellationToken) =>
+        dbContext.Customers.AnyAsync(customer => customer.ExternalId == externalId, cancellationToken);
+
     public async Task<IReadOnlyList<Customer>> ListAsync(string? search, CancellationToken cancellationToken)
     {
         var query = dbContext.Customers.AsNoTracking().AsQueryable();
@@ -16,7 +19,8 @@ public sealed class CustomerRepository(CustomersDbContext dbContext) : ICustomer
         if (!string.IsNullOrWhiteSpace(search))
         {
             var pattern = $"%{search.Trim()}%";
-            query = query.Where(customer => EF.Functions.ILike(customer.ExternalId, pattern)
+            query = query.Where(customer => EF.Functions.ILike(customer.Name, pattern)
+                || (customer.ExternalId != null && EF.Functions.ILike(customer.ExternalId, pattern))
                 || (customer.Email != null && EF.Functions.ILike(customer.Email, pattern))
                 || (customer.Phone != null && EF.Functions.ILike(customer.Phone, pattern)));
         }

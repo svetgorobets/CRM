@@ -40,6 +40,10 @@ namespace Infrastructure.Migrations
                         .HasColumnType("character varying(320)");
 
                     b.Property<string>("ExternalId")
+                        .HasMaxLength(200)
+                        .HasColumnType("character varying(200)");
+
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(200)
                         .HasColumnType("character varying(200)");

@@ -1131,15 +1131,9 @@ function AddCustomer({
       <form onSubmit={submit}>
         <div className="modal-body">
           <p className="section-label">Basic information</p>
-          <div className="form-grid">
-            <div className="field">
-              <label>First name</label>
-              <input required placeholder="e.g. Maya" />
-            </div>
-            <div className="field">
-              <label>Last name</label>
-              <input required placeholder="e.g. Patel" />
-            </div>
+          <div className="field">
+            <label>Full name</label>
+            <input required placeholder="e.g. Maya Patel" />
           </div>
           <div className="field">
             <label>

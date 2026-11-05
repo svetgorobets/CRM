@@ -36,13 +36,33 @@ customers.MapGet("/{id:guid}", async (Guid id, ICustomerService service, Cancell
 });
 customers.MapPost("/", async (CustomerInput input, ICustomerService service, CancellationToken cancellationToken) =>
 {
-    var customer = await service.CreateAsync(input, cancellationToken);
-    return Results.Created($"/api/customers/{customer.Customer.Id}", customer);
+    var errors = CustomerInputValidator.Validate(input);
+    if (errors.Count > 0) return Results.ValidationProblem(errors);
+
+    try
+    {
+        var customer = await service.CreateAsync(input, cancellationToken);
+        return Results.Created($"/api/customers/{customer.Customer.Id}", customer);
+    }
+    catch (CustomerValidationException exception)
+    {
+        return Results.ValidationProblem(exception.Errors);
+    }
 });
 customers.MapPut("/{id:guid}", async (Guid id, CustomerUpdateInput input, ICustomerService service, CancellationToken cancellationToken) =>
 {
-    var customer = await service.UpdateAsync(id, input, cancellationToken);
-    return customer is null ? Results.NotFound() : Results.Ok(customer);
+    var errors = CustomerInputValidator.Validate(input);
+    if (errors.Count > 0) return Results.ValidationProblem(errors);
+
+    try
+    {
+        var customer = await service.UpdateAsync(id, input, cancellationToken);
+        return customer is null ? Results.NotFound() : Results.Ok(customer);
+    }
+    catch (CustomerValidationException exception)
+    {
+        return Results.ValidationProblem(exception.Errors);
+    }
 });
 customers.MapPut("/{id:guid}/preferences", async (Guid id, CustomerPreferenceInput input, ICustomerService service, CancellationToken cancellationToken) =>
 {

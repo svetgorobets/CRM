@@ -14,7 +14,8 @@ public sealed class CustomersDbContext(DbContextOptions<CustomersDbContext> opti
         {
             entity.ToTable("customers");
             entity.HasKey(customer => customer.Id);
-            entity.Property(customer => customer.ExternalId).HasMaxLength(200).IsRequired();
+            entity.Property(customer => customer.Name).HasMaxLength(200).IsRequired();
+            entity.Property(customer => customer.ExternalId).HasMaxLength(200);
             entity.HasIndex(customer => customer.ExternalId).IsUnique();
             entity.Property(customer => customer.Email).HasMaxLength(320);
             entity.Property(customer => customer.Phone).HasMaxLength(50);
