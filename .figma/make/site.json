@@ -1,0 +1,10 @@
+{
+  "description": "Manage customer communications across email, SMS, and push with tools for templates, automated rules, scheduling, and delivery tracking.",
+  "robots": {
+    "index": false
+  },
+  "accessibility": {
+    "addBypassLinks": false,
+    "ignoreReducedMotion": false
+  }
+}

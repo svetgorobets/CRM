@@ -1,0 +1,15 @@
+C:\Users\lanaclafilin\Documents\ChatGPT\CRM\backend\src\BuildingBlocks\Application\bin\Debug\net10.0\NotificationManagement.BuildingBlocks.Application.deps.json
+C:\Users\lanaclafilin\Documents\ChatGPT\CRM\backend\src\BuildingBlocks\Application\bin\Debug\net10.0\NotificationManagement.BuildingBlocks.Application.dll
+C:\Users\lanaclafilin\Documents\ChatGPT\CRM\backend\src\BuildingBlocks\Application\bin\Debug\net10.0\NotificationManagement.BuildingBlocks.Application.pdb
+C:\Users\lanaclafilin\Documents\ChatGPT\CRM\backend\src\BuildingBlocks\Application\bin\Debug\net10.0\NotificationManagement.BuildingBlocks.Domain.dll
+C:\Users\lanaclafilin\Documents\ChatGPT\CRM\backend\src\BuildingBlocks\Application\bin\Debug\net10.0\NotificationManagement.BuildingBlocks.Domain.pdb
+C:\Users\lanaclafilin\Documents\ChatGPT\CRM\backend\src\BuildingBlocks\Application\obj\Debug\net10.0\Application.csproj.AssemblyReference.cache
+C:\Users\lanaclafilin\Documents\ChatGPT\CRM\backend\src\BuildingBlocks\Application\obj\Debug\net10.0\Application.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\lanaclafilin\Documents\ChatGPT\CRM\backend\src\BuildingBlocks\Application\obj\Debug\net10.0\Application.AssemblyInfoInputs.cache
+C:\Users\lanaclafilin\Documents\ChatGPT\CRM\backend\src\BuildingBlocks\Application\obj\Debug\net10.0\Application.AssemblyInfo.cs
+C:\Users\lanaclafilin\Documents\ChatGPT\CRM\backend\src\BuildingBlocks\Application\obj\Debug\net10.0\Application.csproj.CoreCompileInputs.cache
+C:\Users\lanaclafilin\Documents\ChatGPT\CRM\backend\src\BuildingBlocks\Application\obj\Debug\net10.0\Applicat.44B5EDA2.Up2Date
+C:\Users\lanaclafilin\Documents\ChatGPT\CRM\backend\src\BuildingBlocks\Application\obj\Debug\net10.0\NotificationManagement.BuildingBlocks.Application.dll
+C:\Users\lanaclafilin\Documents\ChatGPT\CRM\backend\src\BuildingBlocks\Application\obj\Debug\net10.0\refint\NotificationManagement.BuildingBlocks.Application.dll
+C:\Users\lanaclafilin\Documents\ChatGPT\CRM\backend\src\BuildingBlocks\Application\obj\Debug\net10.0\NotificationManagement.BuildingBlocks.Application.pdb
+C:\Users\lanaclafilin\Documents\ChatGPT\CRM\backend\src\BuildingBlocks\Application\obj\Debug\net10.0\ref\NotificationManagement.BuildingBlocks.Application.dll

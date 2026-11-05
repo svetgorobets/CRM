@@ -1,0 +1,8 @@
+<Project>
+  <PropertyGroup>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <AssemblyName>NotificationManagement.$([System.IO.Path]::GetFileName($([System.IO.Directory]::GetParent('$(MSBuildProjectDirectory)').FullName))).$(MSBuildProjectName)</AssemblyName>
+  </PropertyGroup>
+</Project>

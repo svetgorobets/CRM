@@ -1,0 +1,291 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v10.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v10.0": {
+      "NotificationManagement.Notifications.Application/1.0.0": {
+        "dependencies": {
+          "NotificationManagement.BuildingBlocks.Application": "1.0.0",
+          "NotificationManagement.Customers.Application": "1.0.0",
+          "NotificationManagement.Integrations.Application": "1.0.0",
+          "NotificationManagement.Notifications.Domain": "1.0.0",
+          "NotificationManagement.Templates.Application": "1.0.0",
+          "NotificationManagement.BuildingBlocks.Application.Reference": "1.0.0.0",
+          "NotificationManagement.BuildingBlocks.Domain.Reference": "1.0.0.0",
+          "NotificationManagement.Customers.Application.Reference": "1.0.0.0",
+          "NotificationManagement.Customers.Domain.Reference": "1.0.0.0",
+          "NotificationManagement.Integrations.Application.Reference": "1.0.0.0",
+          "NotificationManagement.Integrations.Domain.Reference": "1.0.0.0",
+          "NotificationManagement.Notifications.Domain.Reference": "1.0.0.0",
+          "NotificationManagement.Templates.Application.Reference": "1.0.0.0",
+          "NotificationManagement.Templates.Domain.Reference": "1.0.0.0"
+        },
+        "runtime": {
+          "NotificationManagement.Notifications.Application.dll": {}
+        }
+      },
+      "NotificationManagement.BuildingBlocks.Application/1.0.0": {
+        "dependencies": {
+          "NotificationManagement.BuildingBlocks.Domain": "1.0.0"
+        },
+        "runtime": {
+          "NotificationManagement.BuildingBlocks.Application.dll": {
+            "fileVersion": "0.0.0.0"
+          }
+        }
+      },
+      "NotificationManagement.BuildingBlocks.Domain/1.0.0": {
+        "runtime": {
+          "NotificationManagement.BuildingBlocks.Domain.dll": {
+            "fileVersion": "0.0.0.0"
+          }
+        }
+      },
+      "NotificationManagement.Customers.Application/1.0.0": {
+        "dependencies": {
+          "NotificationManagement.BuildingBlocks.Application": "1.0.0",
+          "NotificationManagement.Customers.Domain": "1.0.0"
+        },
+        "runtime": {
+          "NotificationManagement.Customers.Application.dll": {
+            "fileVersion": "0.0.0.0"
+          }
+        }
+      },
+      "NotificationManagement.Customers.Domain/1.0.0": {
+        "dependencies": {
+          "NotificationManagement.BuildingBlocks.Domain": "1.0.0"
+        },
+        "runtime": {
+          "NotificationManagement.Customers.Domain.dll": {
+            "fileVersion": "0.0.0.0"
+          }
+        }
+      },
+      "NotificationManagement.Integrations.Application/1.0.0": {
+        "dependencies": {
+          "NotificationManagement.BuildingBlocks.Application": "1.0.0",
+          "NotificationManagement.Integrations.Domain": "1.0.0"
+        },
+        "runtime": {
+          "NotificationManagement.Integrations.Application.dll": {
+            "fileVersion": "0.0.0.0"
+          }
+        }
+      },
+      "NotificationManagement.Integrations.Domain/1.0.0": {
+        "dependencies": {
+          "NotificationManagement.BuildingBlocks.Domain": "1.0.0"
+        },
+        "runtime": {
+          "NotificationManagement.Integrations.Domain.dll": {
+            "fileVersion": "0.0.0.0"
+          }
+        }
+      },
+      "NotificationManagement.Notifications.Domain/1.0.0": {
+        "dependencies": {
+          "NotificationManagement.BuildingBlocks.Domain": "1.0.0"
+        },
+        "runtime": {
+          "NotificationManagement.Notifications.Domain.dll": {
+            "fileVersion": "0.0.0.0"
+          }
+        }
+      },
+      "NotificationManagement.Templates.Application/1.0.0": {
+        "dependencies": {
+          "NotificationManagement.BuildingBlocks.Application": "1.0.0",
+          "NotificationManagement.Templates.Domain": "1.0.0"
+        },
+        "runtime": {
+          "NotificationManagement.Templates.Application.dll": {
+            "fileVersion": "0.0.0.0"
+          }
+        }
+      },
+      "NotificationManagement.Templates.Domain/1.0.0": {
+        "dependencies": {
+          "NotificationManagement.BuildingBlocks.Domain": "1.0.0"
+        },
+        "runtime": {
+          "NotificationManagement.Templates.Domain.dll": {
+            "fileVersion": "0.0.0.0"
+          }
+        }
+      },
+      "NotificationManagement.BuildingBlocks.Application.Reference/1.0.0.0": {
+        "runtime": {
+          "NotificationManagement.BuildingBlocks.Application.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "NotificationManagement.BuildingBlocks.Domain.Reference/1.0.0.0": {
+        "runtime": {
+          "NotificationManagement.BuildingBlocks.Domain.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "NotificationManagement.Customers.Application.Reference/1.0.0.0": {
+        "runtime": {
+          "NotificationManagement.Customers.Application.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "NotificationManagement.Customers.Domain.Reference/1.0.0.0": {
+        "runtime": {
+          "NotificationManagement.Customers.Domain.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "NotificationManagement.Integrations.Application.Reference/1.0.0.0": {
+        "runtime": {
+          "NotificationManagement.Integrations.Application.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "NotificationManagement.Integrations.Domain.Reference/1.0.0.0": {
+        "runtime": {
+          "NotificationManagement.Integrations.Domain.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "NotificationManagement.Notifications.Domain.Reference/1.0.0.0": {
+        "runtime": {
+          "NotificationManagement.Notifications.Domain.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "NotificationManagement.Templates.Application.Reference/1.0.0.0": {
+        "runtime": {
+          "NotificationManagement.Templates.Application.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "NotificationManagement.Templates.Domain.Reference/1.0.0.0": {
+        "runtime": {
+          "NotificationManagement.Templates.Domain.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "NotificationManagement.Notifications.Application/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "NotificationManagement.BuildingBlocks.Application/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "NotificationManagement.BuildingBlocks.Domain/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "NotificationManagement.Customers.Application/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "NotificationManagement.Customers.Domain/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "NotificationManagement.Integrations.Application/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "NotificationManagement.Integrations.Domain/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "NotificationManagement.Notifications.Domain/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "NotificationManagement.Templates.Application/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "NotificationManagement.Templates.Domain/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "NotificationManagement.BuildingBlocks.Application.Reference/1.0.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "NotificationManagement.BuildingBlocks.Domain.Reference/1.0.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "NotificationManagement.Customers.Application.Reference/1.0.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "NotificationManagement.Customers.Domain.Reference/1.0.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "NotificationManagement.Integrations.Application.Reference/1.0.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "NotificationManagement.Integrations.Domain.Reference/1.0.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "NotificationManagement.Notifications.Domain.Reference/1.0.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "NotificationManagement.Templates.Application.Reference/1.0.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "NotificationManagement.Templates.Domain.Reference/1.0.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

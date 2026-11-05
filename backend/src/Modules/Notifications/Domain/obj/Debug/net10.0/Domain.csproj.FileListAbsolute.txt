@@ -1,0 +1,15 @@
+C:\Users\lanaclafilin\Documents\ChatGPT\CRM\backend\src\Modules\Notifications\Domain\bin\Debug\net10.0\NotificationManagement.Notifications.Domain.deps.json
+C:\Users\lanaclafilin\Documents\ChatGPT\CRM\backend\src\Modules\Notifications\Domain\bin\Debug\net10.0\NotificationManagement.Notifications.Domain.dll
+C:\Users\lanaclafilin\Documents\ChatGPT\CRM\backend\src\Modules\Notifications\Domain\bin\Debug\net10.0\NotificationManagement.Notifications.Domain.pdb
+C:\Users\lanaclafilin\Documents\ChatGPT\CRM\backend\src\Modules\Notifications\Domain\bin\Debug\net10.0\NotificationManagement.BuildingBlocks.Domain.dll
+C:\Users\lanaclafilin\Documents\ChatGPT\CRM\backend\src\Modules\Notifications\Domain\bin\Debug\net10.0\NotificationManagement.BuildingBlocks.Domain.pdb
+C:\Users\lanaclafilin\Documents\ChatGPT\CRM\backend\src\Modules\Notifications\Domain\obj\Debug\net10.0\Domain.csproj.AssemblyReference.cache
+C:\Users\lanaclafilin\Documents\ChatGPT\CRM\backend\src\Modules\Notifications\Domain\obj\Debug\net10.0\Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\lanaclafilin\Documents\ChatGPT\CRM\backend\src\Modules\Notifications\Domain\obj\Debug\net10.0\Domain.AssemblyInfoInputs.cache
+C:\Users\lanaclafilin\Documents\ChatGPT\CRM\backend\src\Modules\Notifications\Domain\obj\Debug\net10.0\Domain.AssemblyInfo.cs
+C:\Users\lanaclafilin\Documents\ChatGPT\CRM\backend\src\Modules\Notifications\Domain\obj\Debug\net10.0\Domain.csproj.CoreCompileInputs.cache
+C:\Users\lanaclafilin\Documents\ChatGPT\CRM\backend\src\Modules\Notifications\Domain\obj\Debug\net10.0\Domain.csproj.Up2Date
+C:\Users\lanaclafilin\Documents\ChatGPT\CRM\backend\src\Modules\Notifications\Domain\obj\Debug\net10.0\NotificationManagement.Notifications.Domain.dll
+C:\Users\lanaclafilin\Documents\ChatGPT\CRM\backend\src\Modules\Notifications\Domain\obj\Debug\net10.0\refint\NotificationManagement.Notifications.Domain.dll
+C:\Users\lanaclafilin\Documents\ChatGPT\CRM\backend\src\Modules\Notifications\Domain\obj\Debug\net10.0\NotificationManagement.Notifications.Domain.pdb
+C:\Users\lanaclafilin\Documents\ChatGPT\CRM\backend\src\Modules\Notifications\Domain\obj\Debug\net10.0\ref\NotificationManagement.Notifications.Domain.dll

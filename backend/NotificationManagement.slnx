@@ -1,0 +1,37 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/Api/Api.csproj" />
+    <Project Path="src/Worker/Worker.csproj" />
+  </Folder>
+  <Folder Name="/src/BuildingBlocks/">
+    <Project Path="src/BuildingBlocks/Application/Application.csproj" />
+    <Project Path="src/BuildingBlocks/Domain/Domain.csproj" />
+    <Project Path="src/BuildingBlocks/Infrastructure/Infrastructure.csproj" />
+  </Folder>
+  <Folder Name="/src/Modules/" />
+  <Folder Name="/src/Modules/Customers/">
+    <Project Path="src/Modules/Customers/Application/Application.csproj" />
+    <Project Path="src/Modules/Customers/Domain/Domain.csproj" />
+    <Project Path="src/Modules/Customers/Infrastructure/Infrastructure.csproj" />
+  </Folder>
+  <Folder Name="/src/Modules/Integrations/">
+    <Project Path="src/Modules/Integrations/Application/Application.csproj" />
+    <Project Path="src/Modules/Integrations/Domain/Domain.csproj" />
+    <Project Path="src/Modules/Integrations/Infrastructure/Infrastructure.csproj" />
+  </Folder>
+  <Folder Name="/src/Modules/Notifications/">
+    <Project Path="src/Modules/Notifications/Application/Application.csproj" />
+    <Project Path="src/Modules/Notifications/Domain/Domain.csproj" />
+    <Project Path="src/Modules/Notifications/Infrastructure/Infrastructure.csproj" />
+  </Folder>
+  <Folder Name="/src/Modules/Rules/">
+    <Project Path="src/Modules/Rules/Application/Application.csproj" />
+    <Project Path="src/Modules/Rules/Domain/Domain.csproj" />
+    <Project Path="src/Modules/Rules/Infrastructure/Infrastructure.csproj" />
+  </Folder>
+  <Folder Name="/src/Modules/Templates/">
+    <Project Path="src/Modules/Templates/Application/Application.csproj" />
+    <Project Path="src/Modules/Templates/Domain/Domain.csproj" />
+    <Project Path="src/Modules/Templates/Infrastructure/Infrastructure.csproj" />
+  </Folder>
+</Solution>
