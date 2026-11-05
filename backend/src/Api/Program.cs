@@ -1,6 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using NotificationManagement.Customers.Application;
 using NotificationManagement.Customers.Infrastructure;
+using NotificationManagement.Integrations.Application;
+using NotificationManagement.Integrations.Infrastructure;
 using NotificationManagement.Templates.Application;
 using NotificationManagement.Templates.Infrastructure;
 
@@ -10,6 +12,7 @@ builder.Services.AddHealthChecks();
 builder.Services.AddSingleton(TimeProvider.System);
 builder.Services.AddCustomersModule(builder.Configuration);
 builder.Services.AddTemplatesModule(builder.Configuration);
+builder.Services.AddIntegrationsModule(builder.Configuration);
 
 var app = builder.Build();
 
@@ -72,6 +75,9 @@ templates.MapPost("/{id:guid}/render", async (Guid id, RenderTemplateRequest req
     var rendered = await service.RenderAsync(id, request.Values, cancellationToken);
     return rendered is null ? Results.NotFound() : Results.Ok(rendered);
 });
+
+var integrations = app.MapGroup("/api/integrations");
+integrations.MapGet("/", (IIntegrationConfigurationService service) => Results.Ok(service.GetActiveConfigurations()));
 
 app.Run();
 

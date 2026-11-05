@@ -21,6 +21,15 @@ Available endpoints:
 - `GET`, `POST`, and `PUT /api/customers`; `PUT /api/customers/{id}/preferences`
 - `GET`, `POST`, `PUT`, and `DELETE /api/templates`
 - `POST /api/templates/{id}/render` with a JSON `values` object
+- `GET /api/integrations` to view the active provider per channel
+
+## Development delivery providers
+
+Email, SMS, and Push use the `Development` provider by default. Each adapter accepts
+a delivery request, writes a safe log entry, and returns a normalized `Accepted`
+result with a development message ID. Change `Integrations:{Channel}:Provider` in
+environment configuration when a real adapter is added; provider selection is kept
+inside the Integrations module.
 
 Integrations, notifications, rules, outbox, inbox, scheduling, and provider delivery
-are deliberately deferred to their respective implementation phases.
+through external vendors are deliberately deferred to their respective implementation phases.
