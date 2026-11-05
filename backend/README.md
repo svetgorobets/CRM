@@ -22,6 +22,17 @@ Available endpoints:
 - `GET`, `POST`, `PUT`, and `DELETE /api/templates`
 - `POST /api/templates/{id}/render` with a JSON `values` object
 - `GET /api/integrations` to view the active provider per channel
+- `POST /api/notifications` to record a notification request
+- `GET` and `POST /api/rules` to manage event-triggered notification rules
+- `POST /api/events/orders-created` to process an `OrderCreated` event
+
+## Order-created flow
+
+Create a rule with `eventType` set to `OrderCreated`, a template ID, delivery
+channel, and category. When the order system calls `/api/events/orders-created`,
+each matching active rule creates a notification request for that customer. This
+first implementation records requests synchronously; asynchronous delivery through
+the Worker and RabbitMQ comes in the next step.
 
 ## Development delivery providers
 

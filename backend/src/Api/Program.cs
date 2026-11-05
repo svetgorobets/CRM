@@ -1,9 +1,14 @@
 using Microsoft.EntityFrameworkCore;
+using System.Text.Json;
 using NotificationManagement.BuildingBlocks.Application.Validation;
 using NotificationManagement.Customers.Application;
 using NotificationManagement.Customers.Infrastructure;
 using NotificationManagement.Integrations.Application;
 using NotificationManagement.Integrations.Infrastructure;
+using NotificationManagement.Notifications.Application;
+using NotificationManagement.Notifications.Infrastructure;
+using NotificationManagement.Rules.Application;
+using NotificationManagement.Rules.Infrastructure;
 using NotificationManagement.Templates.Application;
 using NotificationManagement.Templates.Infrastructure;
 
@@ -14,6 +19,8 @@ builder.Services.AddSingleton(TimeProvider.System);
 builder.Services.AddCustomersModule(builder.Configuration);
 builder.Services.AddTemplatesModule(builder.Configuration);
 builder.Services.AddIntegrationsModule(builder.Configuration);
+builder.Services.AddNotificationsModule(builder.Configuration);
+builder.Services.AddRulesModule(builder.Configuration);
 
 var app = builder.Build();
 
@@ -22,6 +29,8 @@ if (app.Environment.IsDevelopment())
     await using var scope = app.Services.CreateAsyncScope();
     await scope.ServiceProvider.GetRequiredService<CustomersDbContext>().Database.MigrateAsync();
     await scope.ServiceProvider.GetRequiredService<TemplatesDbContext>().Database.MigrateAsync();
+    await scope.ServiceProvider.GetRequiredService<NotificationsDbContext>().Database.MigrateAsync();
+    await scope.ServiceProvider.GetRequiredService<RulesDbContext>().Database.MigrateAsync();
 }
 
 app.MapGet("/", () => Results.Ok(new { service = "notification-management-api" }));
@@ -30,16 +39,14 @@ app.MapHealthChecks("/health");
 var customers = app.MapGroup("/api/customers");
 customers.MapGet("/", async (string? search, ICustomerService service, CancellationToken cancellationToken) =>
     Results.Ok(await service.ListAsync(search, cancellationToken)));
+    
 customers.MapGet("/{id:guid}", async (Guid id, ICustomerService service, CancellationToken cancellationToken) =>
 {
     var customer = await service.GetAsync(id, cancellationToken);
     return customer is null ? Results.NotFound() : Results.Ok(customer);
 });
-customers.MapPost("/", async (CustomerInput input, IValidator<CustomerInput> validator, ICustomerService service, CancellationToken cancellationToken) =>
+customers.MapPost("/", async (CustomerInput input, ICustomerService service, CancellationToken cancellationToken) =>
 {
-    var result = validator.Validate(input);
-    if (!result.IsValid) return Results.ValidationProblem(result.Errors);
-
     try
     {
         var customer = await service.CreateAsync(input, cancellationToken);
@@ -50,11 +57,8 @@ customers.MapPost("/", async (CustomerInput input, IValidator<CustomerInput> val
         return Results.ValidationProblem(exception.Result.Errors);
     }
 });
-customers.MapPut("/{id:guid}", async (Guid id, CustomerUpdateInput input, IValidator<CustomerUpdateInput> validator, ICustomerService service, CancellationToken cancellationToken) =>
+customers.MapPut("/{id:guid}", async (Guid id, CustomerUpdateInput input, ICustomerService service, CancellationToken cancellationToken) =>
 {
-    var result = validator.Validate(input);
-    if (!result.IsValid) return Results.ValidationProblem(result.Errors);
-
     try
     {
         var customer = await service.UpdateAsync(id, input, cancellationToken);
@@ -100,6 +104,55 @@ templates.MapPost("/{id:guid}/render", async (Guid id, RenderTemplateRequest req
 var integrations = app.MapGroup("/api/integrations");
 integrations.MapGet("/", (IIntegrationConfigurationService service) => Results.Ok(service.GetActiveConfigurations()));
 
+var rules = app.MapGroup("/api/rules");
+rules.MapGet("/", async (IRuleService service, CancellationToken cancellationToken) =>
+    Results.Ok(await service.ListAsync(cancellationToken)));
+rules.MapPost("/", async (CreateNotificationRule input, IRuleService service, CancellationToken cancellationToken) =>
+{
+    try
+    {
+        var rule = await service.CreateAsync(input, cancellationToken);
+        return Results.Created($"/api/rules/{rule.Id}", rule);
+    }
+    catch (RequestValidationException exception)
+    {
+        return Results.ValidationProblem(exception.Result.Errors);
+    }
+});
+
+var notifications = app.MapGroup("/api/notifications");
+notifications.MapPost("/", async (CreateNotificationRequest request, INotificationRequestService service, CancellationToken cancellationToken) =>
+{
+    var notification = await service.CreateAsync(request, cancellationToken);
+    return Results.Created($"/api/notifications/{notification.Id}", notification);
+});
+
+app.MapPost("/api/events/orders-created", async (
+    OrderCreatedEvent order,
+    IRuleService ruleService,
+    INotificationRequestService notificationService,
+    CancellationToken cancellationToken) =>
+{
+    var actions = await ruleService.EvaluateAsync("OrderCreated", cancellationToken);
+    var dataJson = JsonSerializer.Serialize(new
+    {
+        order.OrderId,
+        order.Total,
+        order.Currency
+    });
+    var requests = new List<NotificationRequestSummary>();
+
+    foreach (var action in actions)
+    {
+        requests.Add(await notificationService.CreateAsync(
+            new CreateNotificationRequest(order.CustomerId, action.TemplateId, action.Channel, action.Category, dataJson),
+            cancellationToken));
+    }
+
+    return Results.Ok(new { eventType = "OrderCreated", notificationsCreated = requests.Count, requests });
+});
+
 app.Run();
 
 public sealed record RenderTemplateRequest(Dictionary<string, string> Values);
+public sealed record OrderCreatedEvent(Guid CustomerId, string OrderId, decimal Total, string Currency);
